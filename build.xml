@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="java-exercise-service" default="run">
+    
+    <target name="resolve" description="--> retrieve dependencies with ivy">
+        <echo message="In here -----" />
+    </target>
+</project>

@@ -1,12 +1,40 @@
-*.class
+# Project structure related
+.classpath
+.project
+.settings
+.metadata
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+*.iml
+*.ipr
+*.iws
+.idea/
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Build related
+bin/**
+build
+.gradle
+*.class
 
 # Package Files #
 *.jar
 *.war
 *.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Scala Related Files
+*.log
+*.class
+
+# sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/

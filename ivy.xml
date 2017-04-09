@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+    <info organisation="com.java.exercise" module="java-exercise-service"/>
+    
+    <configurations>
+    	<conf name="compile" description="Resources required to compile both the server and client side of SWL"/>
+    	<conf name="compile-server" extends="compile" description="Resources required to compile the server side of SWL"/>
+    </configurations>
+       
+    <dependencies>
+         <dependency org="org.powermock" name="powermock-module-junit4" rev="1.6.4">
+		   <include name="powermock-module-junit4" type="jar"/>
+		</dependency> 
+		        
+ 		<dependency org="org.powermock" name="powermock-module-junit4-rule" rev="1.6.4">
+		   <include name="powermock-module-junit4-rule" type="jar"/>
+		</dependency>
+         				
+        <dependency conf="compile-server->master" org="com.sun.jersey" name="jersey-bundle" rev="1.19.3"/>
+
+    </dependencies>
+</ivy-module>
