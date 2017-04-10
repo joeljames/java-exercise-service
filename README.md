@@ -43,6 +43,6 @@ Ivy uses the [maven 2]((http://mvnrepository.com/search?q=jersey-bundle)) reposi
 
 The app should be up and running now. To exercise the web service, open a browser to the URL or use curl to exercise the URL:
 ```
-http://localhost:8071/java-exercise-service/webapi/myresource
+http://localhost:8071/java-exercise-service/webapi/activities?descriptions=Swimming&durationFrom=10&durationTo=60
 ```
 
