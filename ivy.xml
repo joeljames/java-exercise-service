@@ -16,7 +16,7 @@
 		   <include name="powermock-module-junit4-rule" type="jar"/>
 		</dependency>
          				
-        <dependency conf="compile-server->master" org="com.sun.jersey" name="jersey-bundle" rev="1.19.3"/>
+        <dependency conf="compile->default" org="com.sun.jersey" name="jersey-bundle" rev="1.19.3"/>
 
     </dependencies>
 </ivy-module>
