@@ -1,5 +1,5 @@
 # Java Exercise Service
-This project is a basic jersey project skeleton. I am using ivy package manager to pull down project dependencies. I will be using Eclipse editor, and will be running this project using Jetty.
+This project is a basic jersey project skeleton. I wll be using ivy package manager to pull down project dependencies. I will be using Eclipse editor, and will be running this project using Jetty.
 
 ## Prerequisite
 
@@ -36,26 +36,35 @@ wget http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.2.0/ivy
 3. Select Run-Jetty-Run
 4. Select install
 
-### Clone the project
+## Getting Strted
+
+### Clone the project to your workspace directory
 ```
 git clone https://github.com/joeljames/java-exercise-service.git
 ```
 
-### Resolve ivy dependencies
-a) Using Eclipse
-Ivy uses the [maven 2]((http://mvnrepository.com/search?q=jersey-bundle)) repository to resolve the dependencies you declare in the ivy.xml file.
+### Add the project to Eclipse
 1. File -> New -> Java Project
 2. Set Project Name to "java-exercise-service"
-3. Package Explorer -> Right click on the project name "java-exercise-service"
-4. Build Path -> Configure Build Path ->
-5. Libraries(tab) -> Add Library -> Select (ivyDE Managed dependencies ) -> Next -> Finish
 
-b) Using ant
+### Build the project using command line
+Run the below command to retrives ivy dependencies, compile source and output the classes to build/main
 ```
-ant resolve
+ant compile
 ```
 
-### Run the project using Jetty
+Or you can resolve ivy dependencies using Eclipse. Ivy uses the [maven 2]((http://mvnrepository.com/)) repository to resolve the dependencies you declare in the ivy.xml file.
+
+1. Package Explorer -> Right click on the project name "java-exercise-service"
+2. Build Path -> Configure Build Path ->
+3. Libraries(tab) -> Add Library -> Select (ivyDE Managed dependencies ) -> Next -> Finish
+
+### Run unit tests
+```
+ant test
+```
+
+### Start the project using Jetty
 1. Run -> Run Configurations
 2. Right click -> Jetty Webapp -> New
 3. Set Select a Jetty Version to "Jetty 7.6"

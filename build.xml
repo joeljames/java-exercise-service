@@ -32,7 +32,7 @@
 		<ivy:retrieve conf="compile" pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]"/>
     </target>
       
-    <target name="compile" depends="clean, ivy-retrieve" description="--> compiles source and output goes to build/main">
+    <target name="compile" depends="clean, ivy-retrieve" description="--> retrives ivy dependencies, compiles source and output goes to build/main">
         <mkdir dir="${main.build.dir}" />
          <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" verbose="yes" source="1.7" target="1.7" includeantruntime="false" >
             <classpath refid="classpath.src" />
