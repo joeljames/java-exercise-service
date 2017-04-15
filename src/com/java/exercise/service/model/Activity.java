@@ -3,7 +3,6 @@ package com.java.exercise.service.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @XmlRootElement
 public class Activity {
     private String id;
@@ -19,7 +18,7 @@ public class Activity {
     }
 
     @XmlElement(name = "desc")
-    public String getDescripotion() {
+    public String getDescription() {
         return description;
     }
 

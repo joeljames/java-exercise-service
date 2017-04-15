@@ -43,13 +43,12 @@ public class ActivityRepositoryStub implements ActivityRepository {
     @Override
     public void delete(String activityId) {
         // Delete activity from the database
-
     }
 
     @Override
-    public List<Activity> findByDescriptions(List<String> descriptions, int durationFrom, int durationTo) {        
+    public List<Activity> findByDescriptions(List<String> descriptions, int durationFrom, int durationTo) {
         List<Activity> activities = new ArrayList<>();
-        
+
         Activity activity1 = new Activity();
         activity1.setId("123");
         activity1.setDescription("Swimming");
@@ -60,7 +59,7 @@ public class ActivityRepositoryStub implements ActivityRepository {
         activity2.setId("456");
         activity2.setDescription("Running");
         activity2.setDuration(55);
-        activities.add(activity2);        
+        activities.add(activity2);
         return activities;
     }
 
