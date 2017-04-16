@@ -15,14 +15,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.java.exercise.service.dao.ActivityDAO;
+import com.java.exercise.service.dao.ActivityDAOImpl;
 import com.java.exercise.service.model.Activity;
-import com.java.exercise.service.repository.ActivityRepository;
-import com.java.exercise.service.repository.ActivityRepositoryStub;
+import com.java.exercise.service.service.MorphiaService;
 
 @Path("activities")  // http://localhost:8071/java-exercise-service/webapi/activities
 public class ActivityResource {
-    private ActivityRepository activityRepository = new ActivityRepositoryStub();
 
+    private MorphiaService morphiaService = new MorphiaService();
+    private ActivityDAO activityDAO = new ActivityDAOImpl(Activity.class, morphiaService.getDatastore());
+    
     @GET // http://localhost:8071/java-exercise-service/webapi/activities?descriptions=Swimming&durationFrom=10&durationTo=60
     @Produces({ MediaType.APPLICATION_JSON })
     public Response serachForActivities(@QueryParam(value = "descriptions") List<String> descriptions,
@@ -31,7 +34,7 @@ public class ActivityResource {
         System.out.println("Duration From: " + durationFrom);
         System.out.println("Duration To: " + durationTo);
 
-        List<Activity> activities = activityRepository.findByDescriptions(descriptions, durationFrom, durationTo);
+        List<Activity> activities = activityDAO.findAllActivities();
         if (activities == null || activities.size() <= 0) {
             Response.status(Status.NOT_FOUND).build();
         }
@@ -43,7 +46,7 @@ public class ActivityResource {
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("{activityId}")
     public Response getActivityUser(@PathParam("activityId") String activityId) {
-        Activity activity = activityRepository.findByActivityId(activityId);
+        Activity activity = activityDAO.findByActivityId(activityId);
         if (activity == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
@@ -55,7 +58,7 @@ public class ActivityResource {
     @Consumes({ MediaType.APPLICATION_JSON })
     public Response createActivity(Activity activity) {
         System.out.println(activity.getDescription());
-        activityRepository.create(activity);
+        activityDAO.create(activity.getId(), activity.getDescription(), activity.getDuration());
         return Response.status(Status.CREATED).build();
     }
     
@@ -63,7 +66,7 @@ public class ActivityResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Path("{activityId}")
     public Response deleteActivity(@PathParam("activityId") String activityId){
-        activityRepository.delete(activityId);
+        activityDAO.delete(activityId);
         return Response.ok().build();
     }
 }
