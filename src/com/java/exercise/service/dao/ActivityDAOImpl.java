@@ -35,7 +35,7 @@ public class ActivityDAOImpl extends DAO<Activity, ObjectId> implements Activity
 
     @Override
     public void create(String id, String description, int duration) {
-        Activity activity = new Activity();
+        Activity activity = new Activity(id, description, duration);
         save(activity);        
     }
 

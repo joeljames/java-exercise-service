@@ -1,6 +1,9 @@
 package com.java.exercise.service;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,6 +18,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.exercise.service.dao.ActivityDAO;
 import com.java.exercise.service.dao.ActivityDAOImpl;
 import com.java.exercise.service.model.Activity;
@@ -25,7 +30,7 @@ public class ActivityResource {
 
     private MorphiaService morphiaService = new MorphiaService();
     private ActivityDAO activityDAO = new ActivityDAOImpl(Activity.class, morphiaService.getDatastore());
-    
+
     @GET // http://localhost:8071/java-exercise-service/webapi/activities?descriptions=Swimming&durationFrom=10&durationTo=60
     @Produces({ MediaType.APPLICATION_JSON })
     public Response serachForActivities(@QueryParam(value = "descriptions") List<String> descriptions,
@@ -56,16 +61,29 @@ public class ActivityResource {
     @POST // http://localhost:8071/java-exercise-service/webapi/activities/
     @Produces({ MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_JSON })
-    public Response createActivity(Activity activity) {
-        System.out.println(activity.getDescription());
-        activityDAO.create(activity.getId(), activity.getDescription(), activity.getDuration());
+    public Response createActivity(String body) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> jsonMap = new HashMap<String, Object>();
+            jsonMap = mapper.readValue(body, new TypeReference<Map<String, String>>() {
+            });
+            System.out.println("The jsonMap is: " + jsonMap);
+            String id = (String) jsonMap.get("id");
+            Integer duration = Integer.parseInt((String) jsonMap.get("duration"));
+            String description = (String) jsonMap.get("description");
+
+            activityDAO.create(id, description, duration);
+        } catch (IOException ie) {
+            ie.printStackTrace();
+            return Response.status(Status.BAD_REQUEST).build();
+        }
         return Response.status(Status.CREATED).build();
     }
-    
+
     @DELETE // http://localhost:8071/java-exercise-service/webapi/activities/
-    @Produces({MediaType.APPLICATION_JSON})
+    @Produces({ MediaType.APPLICATION_JSON })
     @Path("{activityId}")
-    public Response deleteActivity(@PathParam("activityId") String activityId){
+    public Response deleteActivity(@PathParam("activityId") String activityId) {
         activityDAO.delete(activityId);
         return Response.ok().build();
     }

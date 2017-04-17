@@ -19,5 +19,7 @@
         <dependency conf="compile->default" org="com.sun.jersey" name="jersey-bundle" rev="1.19.3"/>
 
         <dependency conf="compile->default" org="org.mongodb.morphia" name="morphia" rev="1.3.0"/> 
+        <dependency conf="compile->default" org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.8.4"/>
+        
     </dependencies>
 </ivy-module>
