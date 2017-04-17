@@ -1,5 +1,7 @@
 # Java Exercise Service
-This project is a basic jersey project skeleton. I wll be using ivy package manager to pull down project dependencies. I will be using Eclipse editor, and will be running this project using Jetty.
+This is a starter webservice project in Java using morphia(mongodb) and jersey. This project was created as a part of me learning and understanding how to develop an webservice application in Java. I have used ivy package manager to pull down project dependencies. I will be using Eclipse editor, and will be running this project using Jetty.
+
+Please feel free to clone or fork and use as needed.
 
 ## Prerequisite
 
@@ -11,6 +13,13 @@ unzip /usr/local/src/apache-ant-1.9.9-bin.zip -d /usr/local/src
 rm /usr/local/src/apache-ant-1.9.9-bin.zip
 echo 'export PATH="/usr/local/src/apache-ant-1.9.9/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
+```
+
+### Install Mongo
+If you are using mac and have brew package manager installed. You can install Mongo by running the command below:
+```
+brew update
+brew install mongodb
 ```
 
 ### Add Ivy jar to ant lib
