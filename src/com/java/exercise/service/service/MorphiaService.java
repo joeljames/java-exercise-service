@@ -3,6 +3,7 @@ package com.java.exercise.service.service;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import com.java.exercise.service.RESTAPIApplication;
 import com.mongodb.MongoClient;
 
 /**
@@ -14,7 +15,8 @@ public class MorphiaService {
     private Datastore datastore;
 
     public MorphiaService() {
-        MongoClient mongoClient = new MongoClient("127.0.0.1:27017");
+        String dbURL = RESTAPIApplication.properties.getProperty("db.url");
+        MongoClient mongoClient = new MongoClient(dbURL);
 
         this.morphia = new Morphia();
         String databaseName = "exercise_service";
