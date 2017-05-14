@@ -16,6 +16,7 @@ public class MorphiaService {
 
     public MorphiaService() {
         String dbURL = RESTAPIApplication.properties.getProperty("db.url");
+//        String dbURL = "127.0.0.1:27017";
         MongoClient mongoClient = new MongoClient(dbURL);
 
         this.morphia = new Morphia();

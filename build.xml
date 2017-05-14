@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="java-exercise-service" default="compile">
     
+    <property name="project.name" value="${ant.project.name}" />
+    <property name="builder" value="Joel James" />
+    
     <property name="main.src.dir" value="src" />
+    <property name="main.env.dir" value="env" />
+    <property name="main.web.dir" value="web" />
     <property name="test.src.dir" value="test" />
+    <property name="package.dir" value="package" />
     <property name="build.dir" value="build" />
     <property name="main.build.dir" value="build/main" />
     <property name="test.build.dir" value="build/test" />
     <property name="ivy.lib.dir" value="lib" />
     <property name="junit.results.dir" value="results" />
+    <property name="web.xml.file" value="${main.web.dir}/WEB-INF/web.xml" />
+    <property name="config.properties.file" value="${main.env.dir}/config.properties" />
+    
+    <tstamp prefix="build.info">
+		<format property="current.date" pattern="d-MMMM-yyyy" locale="en" /> <!-- 13-May-2017 -->
+		<format property="current.time" pattern="hh:mm:ss a z" locale="en" /> <!-- 05:47:53 PM PDT -->
+	</tstamp>
 	    	    
 	<path id="ivy.lib.path">
 		<fileset dir="${ivy.lib.dir}" includes="*.jar" />
@@ -26,12 +39,14 @@
 		<path refid="ivy.lib.path" />
 		<pathelement location="${main.build.dir}" />
 	</path>
-				    
+	
+	    <!-- IVY RETRIEVE -->			    
     <target name="ivy-retrieve" description="--> retrieve dependencies defined in ivy.xml">
         <mkdir dir="${ivy.lib.dir}" />
 		<ivy:retrieve conf="compile" pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]"/>
     </target>
-      
+    
+    <!-- COMPILE -->
     <target name="compile" depends="clean, ivy-retrieve" description="--> retrives ivy dependencies, compiles source and output goes to build/main">
         <mkdir dir="${main.build.dir}" />
          <javac srcdir="${main.src.dir}" destdir="${main.build.dir}" verbose="yes" source="1.7" target="1.7" includeantruntime="false" >
@@ -39,6 +54,7 @@
          </javac>
     </target>    
     
+    <!-- TEST COMPILE -->
     <target name="test-compile" depends="compile" description="--> compiles tests and output goes to build/test">
         <mkdir dir="${test.build.dir}" />
         <javac srcdir="${test.src.dir}" destdir="${test.build.dir}" verbose="yes" source="1.7" target="1.7" includeantruntime="false">
@@ -46,6 +62,7 @@
         </javac>
     </target>
     
+    <!-- TEST -->
     <target name="test" depends="test-compile" description="--> runs the junit tests and the xml results goes to results">
         <mkdir dir="${junit.results.dir}" />
 	    <junit haltonerror="yes" haltonfailure="yes" showoutput="yes" printsummary="yes" fork="true" forkmode="once">      
@@ -59,14 +76,31 @@
 	        </batchtest>
 	    </junit>    
     </target>
-
-    <target name="jar" depends="compile" description="--> package into JAR" >
-        <!-- <jar destfile="java-execrice-service.jar" basedir="${main.build.dir}" compress="true" /> -->
+    
+    <!-- WAR -->
+    <target name="war" depends="compile" description="--> package into a WAR">
+        <mkdir dir="${package.dir}" />
+        <copy file="${config.properties.file}" tofile="${main.build.dir}/config.properties" overwrite="true" />
+        <war warfile="${package.dir}/${project.name}.war" webxml="${web.xml.file}">
+            <lib dir="${ivy.lib.dir}" />
+			<classes dir="${main.build.dir}" />
+			<fileset dir="${main.web.dir}">
+				<!-- Need to exclude it since webxml is an attribute of the war tag above -->
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${builder}" />
+				<attribute name="Built-On" value="${build.info.current.date}" />
+				<attribute name="Built-At" value="${build.info.current.time}" />
+			</manifest>
+		</war>
     </target>
     
+    <!-- CLEAN -->
     <target name="clean" description="--> destroys all generated files and directories">
         <delete dir="${build.dir}" failonerror="false" includeEmptyDirs="true" />
         <delete dir="${ivy.lib.dir}" failonerror="false" includeEmptyDirs="true" />
         <delete dir="${junit.results.dir}" failonerror="false" includeEmptyDirs="true" />
+        <delete dir="${package.dir}" failonerror="false" includeEmptyDirs="true" />
     </target>
 </project>
