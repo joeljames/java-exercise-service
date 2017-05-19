@@ -22,7 +22,7 @@ public class RESTAPIApplication extends Application {
     }
 
     private Properties readProperties() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE);
 
         if (inputStream != null) {
             try {
