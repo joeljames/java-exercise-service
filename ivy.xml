@@ -8,6 +8,7 @@
     </configurations>
        
     <dependencies>
+        <!-- Mocking -->	
          <dependency org="org.powermock" name="powermock-module-junit4" rev="1.6.4">
 		   <include name="powermock-module-junit4" type="jar"/>
 		</dependency> 
@@ -15,11 +16,21 @@
  		<dependency org="org.powermock" name="powermock-module-junit4-rule" rev="1.6.4">
 		   <include name="powermock-module-junit4-rule" type="jar"/>
 		</dependency>
-         				
+         			
+ 		<!-- Jersey integration -->	
         <dependency conf="compile->default" org="com.sun.jersey" name="jersey-bundle" rev="1.19.3"/>
-
-        <dependency conf="compile->default" org="org.mongodb.morphia" name="morphia" rev="1.3.0"/> 
         <dependency conf="compile->default" org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.8.4"/>
         
+         <!-- Mongo ORM Morphia -->
+         <dependency conf="compile->default" org="org.mongodb.morphia" name="morphia" rev="1.3.0"/> 
+        
+        <!-- Guice-Jersey integration -->
+        <dependency org="com.google.inject.extensions" name="guice-servlet" rev="4.1.0">
+            <include name="guice-servlet" type="jar"/>
+        </dependency>
+        
+        <dependency org="com.sun.jersey.contribs" name="jersey-guice" rev="1.19">
+            <include name="jersey-guice" type="jar"/>
+        </dependency>    
     </dependencies>
 </ivy-module>

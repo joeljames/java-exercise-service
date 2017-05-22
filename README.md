@@ -104,7 +104,7 @@ You can start the project either by using Jetty or by using Tomcat.
 The app should be up and running now. To exercise the web service, open a browser to the URL or use curl to exercise the URL:
 
 ```
-http://localhost:8071/java-exercise-service/webapi/activities?descriptions=Swimming&durationFrom=10&durationTo=60
+http://localhost:8071/java-exercise-service/api/activities?descriptions=Swimming&durationFrom=10&durationTo=60
 ```
 
 #### Using Tomcat
@@ -128,6 +128,6 @@ sh $CATALINA_HOME/bin/shutdown.sh
 The app should be up and running now. To exercise the web service, open a browser to the URL or use curl to exercise the URL:
 
 ```
-http://localhost:8080/java-exercise-service/webapi/activities
+http://localhost:8080/java-exercise-service/api/activities
 ```
 

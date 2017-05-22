@@ -20,18 +20,19 @@ import javax.ws.rs.core.Response.Status;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.java.exercise.service.dao.ActivityDAO;
-import com.java.exercise.service.dao.ActivityDAOImpl;
 import com.java.exercise.service.model.Activity;
-import com.java.exercise.service.service.MorphiaService;
 
-@Path("activities")  // http://localhost:8071/java-exercise-service/webapi/activities
+@Path("activities")  // http://localhost:8071/java-exercise-service/api/activities
 public class ActivityResource {
+        
+    @Inject
+    @Named("ActivityDAO")
+    private ActivityDAO activityDAO;;
 
-    private MorphiaService morphiaService = new MorphiaService();
-    private ActivityDAO activityDAO = new ActivityDAOImpl(Activity.class, morphiaService.getDatastore());
-
-    @GET // http://localhost:8071/java-exercise-service/webapi/activities?descriptions=Swimming&durationFrom=10&durationTo=60
+    @GET // http://localhost:8071/java-exercise-service/api/activities?descriptions=Swimming&durationFrom=10&durationTo=60
     @Produces({ MediaType.APPLICATION_JSON })
     public Response serachForActivities(@QueryParam(value = "descriptions") List<String> descriptions,
             @QueryParam(value = "durationFrom") int durationFrom, @QueryParam(value = "durationTo") int durationTo) {
@@ -47,7 +48,7 @@ public class ActivityResource {
         }).build();
     }
 
-    @GET // http://localhost:8071/java-exercise-service/webapi/activities/123
+    @GET // http://localhost:8071/java-exercise-service/api/activities/123
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("{activityId}")
     public Response getActivityUser(@PathParam("activityId") String activityId) {
@@ -58,7 +59,7 @@ public class ActivityResource {
         return Response.ok().entity(activity).build();
     }
 
-    @POST // http://localhost:8071/java-exercise-service/webapi/activities/
+    @POST // http://localhost:8071/java-exercise-service/api/activities/
     @Produces({ MediaType.APPLICATION_JSON })
     @Consumes({ MediaType.APPLICATION_JSON })
     public Response createActivity(String body) {
@@ -80,7 +81,7 @@ public class ActivityResource {
         return Response.status(Status.CREATED).build();
     }
 
-    @DELETE // http://localhost:8071/java-exercise-service/webapi/activities/
+    @DELETE // http://localhost:8071/java-exercise-service/api/activities/
     @Produces({ MediaType.APPLICATION_JSON })
     @Path("{activityId}")
     public Response deleteActivity(@PathParam("activityId") String activityId) {
