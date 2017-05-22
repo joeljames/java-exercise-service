@@ -3,7 +3,9 @@ package com.java.exercise.service.service;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
-import com.java.exercise.service.RESTAPIApplication;
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+import com.java.exercise.service.config.ApplicationProperties;
 import com.mongodb.MongoClient;
 
 /**
@@ -11,15 +13,21 @@ import com.mongodb.MongoClient;
  */
 public class MorphiaService {
 
-    private Morphia morphia;
-    private Datastore datastore;
+    @Inject
+    @Named("Properties")
+    private ApplicationProperties properties;
+    
+    private static final String EXERCISE_SERVICE = "exercise_service";
 
-    public MorphiaService() {
-        String dbURL = RESTAPIApplication.properties.getProperty("db.url");
+    private final Morphia morphia;
+    private final Datastore datastore;
+
+
+    public MorphiaService(String dbURL) {
         MongoClient mongoClient = new MongoClient(dbURL);
 
         this.morphia = new Morphia();
-        String databaseName = "exercise_service";
+        String databaseName = EXERCISE_SERVICE;
         this.datastore = morphia.createDatastore(mongoClient, databaseName);
     }
 
@@ -27,16 +35,8 @@ public class MorphiaService {
         return morphia;
     }
 
-    public void setMorphia(Morphia morphia) {
-        this.morphia = morphia;
-    }
-
     public Datastore getDatastore() {
         return datastore;
-    }
-
-    public void setDatastore(Datastore datastore) {
-        this.datastore = datastore;
     }
 
 }

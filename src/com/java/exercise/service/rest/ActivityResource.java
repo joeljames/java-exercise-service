@@ -30,7 +30,7 @@ public class ActivityResource {
         
     @Inject
     @Named("ActivityDAO")
-    private ActivityDAO activityDAO;;
+    private ActivityDAO activityDAO;
 
     @GET // http://localhost:8071/java-exercise-service/api/activities?descriptions=Swimming&durationFrom=10&durationTo=60
     @Produces({ MediaType.APPLICATION_JSON })
