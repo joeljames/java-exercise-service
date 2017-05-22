@@ -12,6 +12,7 @@ import com.google.inject.name.Named;
 import com.java.exercise.service.dao.ActivityDAO;
 import com.java.exercise.service.dao.ActivityDAOImpl;
 import com.java.exercise.service.model.Activity;
+import com.java.exercise.service.rest.ActivityResource;
 import com.java.exercise.service.service.MorphiaService;
 import com.sun.jersey.guice.JerseyServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;

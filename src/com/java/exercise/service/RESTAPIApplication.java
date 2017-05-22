@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
+import com.java.exercise.service.rest.ActivityResource;
 import com.java.exercise.service.utils.SystemExitReturnValue;
 
 @ApplicationPath("/")

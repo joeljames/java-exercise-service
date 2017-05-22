@@ -1,4 +1,4 @@
-package com.java.exercise.service;
+package com.java.exercise.service.rest;
 
 import java.io.IOException;
 import java.util.HashMap;
