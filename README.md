@@ -108,18 +108,18 @@ http://localhost:8071/java-exercise-service/api/activities?descriptions=Swimming
 ```
 
 #### Using Tomcat
+Assuming you have Tomcat installed and you have your $CATALINA_HOME environemnt variable set you can deploy you application to the tomcat server by running the command below:
+
 ```bash
-ant war
-cp package/java-exercise-service.war $CATALINA_HOME/webapps/
-sh $CATALINA_HOME/bin/startup.sh
+ant publish-to-tomcat-server
 ```
-Now the Tomcat server should be up and running on localhost at port 8080. Tail the catalina log to se if the application started without any errors. You can tail the logs  by running the command below:
+Now the Tomcat server should be up and running on localhost at port 8080. Tail the catalina log to see if the application started without any errors. You can tail the logs  by running the command below:
 
 ```bash
 tail -f $CATALINA_HOME/logs/catalina.out
 ```
 
-If needed to stop the Tomcat server you can do that by runnign the command below:
+If needed to stop the Tomcat server you can do that by running the command below:
 
 ```bash
 sh $CATALINA_HOME/bin/shutdown.sh

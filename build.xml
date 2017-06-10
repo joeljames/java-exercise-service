@@ -4,11 +4,14 @@
     <property name="project.name" value="${ant.project.name}" />
     <property name="builder" value="Joel James" />
     
+    <property environment="env" />
+    
     <property name="main.src.dir" value="src" />
     <property name="main.env.dir" value="env" />
     <property name="main.web.dir" value="web" />
     <property name="test.src.dir" value="test" />
     <property name="package.dir" value="package" />
+    <property name="package.war.file" value="${package.dir}/${project.name}.war" />
     <property name="build.dir" value="build" />
     <property name="main.build.dir" value="build/main" />
     <property name="test.build.dir" value="build/test" />
@@ -16,6 +19,9 @@
     <property name="junit.results.dir" value="results" />
     <property name="web.xml.file" value="${main.web.dir}/WEB-INF/web.xml" />
     <property name="config.properties.file" value="${main.env.dir}/config.properties" />
+    <property name="catalina.home" value="${env.CATALINA_HOME}" />
+    <property name="catalina.webapps.dir" value="${catalina.home}/webapps" />
+    <property name="catalina.webapps.project.dir" value="${catalina.home}/webapps/${project.name}" />
     
     <tstamp prefix="build.info">
 		<format property="current.date" pattern="d-MMMM-yyyy" locale="en" /> <!-- 13-May-2017 -->
@@ -94,6 +100,21 @@
 				<attribute name="Built-At" value="${build.info.current.time}" />
 			</manifest>
 		</war>
+    </target>
+
+    <!-- PUBLISH -->
+    <target name="publish-to-tomcat-server" depends="war" description="--> publishes the WAR to Tomcat server. You need to have $CATALINA_HOME environment variable set">
+        <echo message="You need to have $CATALINA_HOME environment variable set" />
+
+		<exec executable="/bin/sh">
+		    <arg value="${catalina.home}/bin/shutdown.sh"/>
+		</exec> 
+		<delete dir="${catalina.webapps.project.dir}" failonerror="false" includeEmptyDirs="true" />
+		<copy file="${package.war.file}" todir="${catalina.webapps.dir}" overwrite="true" />
+		<exec executable="/bin/sh">
+		    <arg value="${catalina.home}/bin/startup.sh"/>
+		</exec> 
+		        
     </target>
     
     <!-- CLEAN -->
