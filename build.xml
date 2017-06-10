@@ -40,7 +40,7 @@
 		<pathelement location="${main.build.dir}" />
 	</path>
 	
-	    <!-- IVY RETRIEVE -->			    
+	<!-- IVY RETRIEVE -->			    
     <target name="ivy-retrieve" description="--> retrieve dependencies defined in ivy.xml">
         <mkdir dir="${ivy.lib.dir}" />
 		<ivy:retrieve conf="compile" pattern="${ivy.lib.dir}/[artifact]-[revision].[ext]"/>

@@ -24,18 +24,18 @@ public class GuiceServletModule extends JerseyServletModule {
 
     private static final String CONFIG_PROPERTIES = "config.properties";
     private static final Logger LOGGER = Logger.getLogger(GuiceServletModule.class.getName());
-    
+
     @Override
     protected void configureServlets() {
         super.configureServlets();
-        
+
         /* Bind the REST resources */
-        bind(ActivityResource.class).in(Singleton.class);        
-        
+        bind(ActivityResource.class).in(Singleton.class);
+
         serve("/api/*").with(GuiceContainer.class);
 
     }
-    
+
     @Provides
     @Singleton
     @Inject
@@ -52,11 +52,11 @@ public class GuiceServletModule extends JerseyServletModule {
             }
         } else {
             LOGGER.log(Level.SEVERE, "Failed to load properties.");
-            throw new RuntimeException("Failed to load Application Properties.  Quitting.");
+            throw new RuntimeException("Failed to load Application Properties. Quitting.");
         }
         return new ApplicationProperties(properties);
     }
-    
+
     @Provides
     @Singleton
     @Inject
